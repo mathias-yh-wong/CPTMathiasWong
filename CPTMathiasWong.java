@@ -5,5 +5,7 @@ public class CPTMathiasWong{
 		Console con = new Console();
 		
 		con.println("Hello world");
+		int intYear = 2025;
+		con.println("The year is: "+intYear);
 	}
 }
