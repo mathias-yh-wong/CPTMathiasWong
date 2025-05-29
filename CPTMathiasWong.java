@@ -1,13 +1,21 @@
 import arc.*;
 
-public class CPTMathiasWong{
+public class setuptest{
 	public static void main(String[] args){
-		Console con = new Console();
+		Console c = new Console();
 		
-		con.println("Hello world");
-		int intYear = 2025;
-		con.println("The year is: "+intYear);
-		
-		//askdjhwkjahsdkj
+		//Main menu
+		playgame(c);
+		viewLeaderboard(c);
 	}
+	
+	public static void playGame(Console c){
+		
+	}
+	
+	public static void viewLeaderboard(Console c){
+		
+	}
+	
+	
 }
