@@ -1,10 +1,12 @@
 import arc.*;
+import java.awt.Color;
 
 public class CPTMathiasWong{
 	public static void main(String[] args){
 		
 		//Setting up user interface in console
-		Console c = new Console(/*int intWidth, int intHeight*/);
+		Console c = new Console("Blackjack", 1280, 720);
+		c.setDrawColor(Color.GRAY);
 		
 		//Main menu
 		
@@ -22,7 +24,7 @@ public class CPTMathiasWong{
 		if(Character.toUpperCase(charMain) == 'P'){
 			playGame(c);
 		}else if(Character.toUpperCase(charMain) == 'L'){
-			viewLeaderboard(c);
+			//viewLeaderboard(c);
 		}else if(Character.toUpperCase(charMain) == 'Q'){
 			c.closeConsole();
 		}else if(Character.toUpperCase(charMain) == 'H'){
@@ -35,9 +37,15 @@ public class CPTMathiasWong{
 	
 	public static void playGame(Console c){
 		
+		c.println("Enter your username");
+		String strName = c.readLine();
+		int intMoney = 1000;
+		
+		viewLeaderboard(c, strName, intMoney);
+		
 	}
 	
-	public static void viewLeaderboard(Console c){
+	public static void viewLeaderboard(Console c, String name, int money){
 		
 	}
 	
