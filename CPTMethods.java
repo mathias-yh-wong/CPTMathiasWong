@@ -6,6 +6,12 @@ public class CPTMethods{
 		
 	}
 	
+
 	
+
+	public static{
+		
+	}
+
 	
 }
