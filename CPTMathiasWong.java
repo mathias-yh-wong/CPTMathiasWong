@@ -8,28 +8,7 @@ public class CPTMathiasWong{
 		
 		//Setting up console
 		Console c = new Console("Blackjack", 1280, 720);
-		
-		//Background colour
-		c.setBackgroundColor(Color.WHITE);
-		c.fillRect(0, 0, 1280, 720);
-		
-		//Logo
-		BufferedImage logo = c.loadImage("logo.jpg");
-		c.drawImage(logo, 50, 100);
-		
-		//Text + font setup
-		Font font = c.loadFont("font1.otf", 120);
-		c.setDrawFont(font);
-		c.setDrawColor(Color.BLACK);
-		c.drawString("BLACKJACK", 75, -10);
-		
-		//Main menu options + text/font setup
-		Font smallFont = c.loadFont("font1.otf", 60);
-		c.setDrawFont(smallFont);
-		c.drawString(" (P) Play", 700, 300);
-		c.drawString(" (L) Leaderboard", 700, 350);
-		c.drawString(" (H) Help", 700, 400);
-		c.drawString(" (Q) Quit", 700, 450);
+		CPTMethods.consoleSetup(c);
 		c.repaint();
 		
 		//Getting character from user keyboard
@@ -39,12 +18,16 @@ public class CPTMathiasWong{
 		//Directing to specific method
 		if(Character.toUpperCase(charMain) == 'P'){
 			playGame(c);
+			CPTMethods.consoleSetup(c);
 		}else if(Character.toUpperCase(charMain) == 'L'){
 			viewLeaderboard(c);
+			CPTMethods.consoleSetup(c);
 		}else if(Character.toUpperCase(charMain) == 'Q'){
 			c.closeConsole();
 		}else if(Character.toUpperCase(charMain) == 'H'){
 			helpMenu(c);
+			CPTMethods.consoleSetup(c);
+			
 		}else{
 			c.println("Not a valid input.");
 		}
