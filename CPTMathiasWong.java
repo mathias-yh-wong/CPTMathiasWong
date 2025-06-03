@@ -56,6 +56,7 @@ public class CPTMathiasWong{
 		
 		c.clear();
 		
+		//prompting user for bet amount
 		c.println("You have $" + intMoney + ". Place your bet:");
 		int intBet = c.readInt();
 		c.clear();
@@ -70,6 +71,7 @@ public class CPTMathiasWong{
 		int intDealerCount = 2;
 		int intDeckNum = 0;
 		
+		//loading data into intPlayer + intDealer arrays
 		for(int intCount = 0; intCount <= 1; intCount++){
 			intPlayer[intCount][0] = intDeck[intDeckNum][0];
 			intPlayer[intCount][1] = intDeck[intDeckNum++][1];
@@ -77,8 +79,26 @@ public class CPTMathiasWong{
 			intDealer[intCount][1] = intDeck[intDeckNum++][1];
 		}
 		
+		//dealer's first card is dealt face up on the table
+		c.println("The dealer's first card is: ");
+		String strDealerTemp = CPTMethods.cardText(intDealer[0][0], intDealer[0][1]);
+		System.out.println("dealer card: "+strDealerTemp);
+		c.println(strDealerTemp);//ASK FOR HELP
+		c.println();
+		
+		//showing the player's hand
+		c.println("Your hand:");
+		for(int intCount = 0; intCount <= 1; intCount++){
+			String strPlayerTemp = CPTMethods.cardText(intPlayer[intCount][0], intPlayer[intCount][1]);
+			c.println(strPlayerTemp);//ASK FOR HELP
+			System.out.println("player card: "+strPlayerTemp);
+		}
+		c.println();
+		
+		
+		
 		//Outputting username + money to leaderboard file
-		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt", true);
+		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
 		leaderboard.println(strName);
 		leaderboard.println(intMoney);
 		
