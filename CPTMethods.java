@@ -35,6 +35,14 @@ public class CPTMethods{
 		c.repaint();
 		
 	}
+	
+	public static int[][] deckOfCards(){
+		
+		int intDeck[][] = new int[52][3];
+		intDeck[0][0] = 0;
+		return intDeck;
+		
+	}
 
 	
 }
