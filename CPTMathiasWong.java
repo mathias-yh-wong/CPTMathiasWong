@@ -54,11 +54,28 @@ public class CPTMathiasWong{
 			intMoney = 1000000;
 		}
 		
-		c.println("Your username is: "+strName);
-		c.println("Your money is: "+intMoney);
+		c.clear();
+		
+		c.println("You have $" + intMoney + ". Place your bet:");
+		int intBet = c.readInt();
+		c.clear();
 		
 		//creating deck of cards array
 		int intDeck[][] = CPTMethods.deckOfCards();
+		
+		//dealing cards + declaring variables
+		int[][] intPlayer = new int[5][2];
+		int[][] intDealer = new int[5][2];
+		int intPlayerCount = 2;
+		int intDealerCount = 2;
+		int intDeckNum = 0;
+		
+		for(int intCount = 0; intCount <= 1; intCount++){
+			intPlayer[intCount][0] = intDeck[intDeckNum][0];
+			intPlayer[intCount][1] = intDeck[intDeckNum++][1];
+			intDealer[intCount][0] = intDeck[intDeckNum][0];
+			intDealer[intCount][1] = intDeck[intDeckNum++][1];
+		}
 		
 		//Outputting username + money to leaderboard file
 		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt", true);
