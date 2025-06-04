@@ -86,7 +86,7 @@ public class CPTMethods{
 	public static String cardText(int intValue, int intSuit){
 		String[] strValues = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
 		String[] strSuits = {"diamonds", "clubs", "hearts", "spades"};
-		return strValues[intValue] + strSuits[intSuit];
+		return strValues[intValue] + " of " + strSuits[intSuit];
 	}
 	
 }
