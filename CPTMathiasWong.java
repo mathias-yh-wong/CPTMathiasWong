@@ -38,6 +38,10 @@ public class CPTMathiasWong{
 	
 	public static void playGame(Console c){
 		
+		boolean blnPlay = true;
+		String strName = "";
+		int intMoney = 1000;
+		
 		//repainting console
 		c.setBackgroundColor(Color.WHITE);
 		c.fillRect(0, 0, 1280, 720);
@@ -46,56 +50,66 @@ public class CPTMathiasWong{
 		//prompting user
 		c.setTextColor(Color.BLACK);
 		c.println("Enter your username");
-		String strName = c.readLine();
-		int intMoney = 1000;
+		strName = c.readLine();
 		
 		//"statitan" cheat
 		if(strName.equalsIgnoreCase("statitan")){
 			intMoney = 1000000;
 		}
 		
-		c.clear();
-		
-		//prompting user for bet amount
-		c.println("You have $" + intMoney + ". Place your bet:");
-		int intBet = c.readInt();
-		c.clear();
-		
-		//creating deck of cards array
-		int intDeck[][] = CPTMethods.deckOfCards();
-		
-		//dealing cards + declaring variables
-		int[][] intPlayer = new int[5][2];
-		int[][] intDealer = new int[5][2];
-		int intPlayerCount = 2;
-		int intDealerCount = 2;
-		int intDeckNum = 0;
-		
-		//loading data into intPlayer + intDealer arrays
-		for(int intCount = 0; intCount <= 1; intCount++){
-			intPlayer[intCount][0] = intDeck[intDeckNum][0];
-			intPlayer[intCount][1] = intDeck[intDeckNum++][1];
-			intDealer[intCount][0] = intDeck[intDeckNum][0];
-			intDealer[intCount][1] = intDeck[intDeckNum++][1];
+		while(blnPlay = true && intMoney > 0){
+			
+			c.clear();
+			
+			//prompting user for bet amount
+			c.println("You have $" + intMoney + ". Place your bet:");
+			int intBet = c.readInt();
+			c.clear();
+			intMoney = intMoney - intBet;
+			
+			//creating deck of cards array
+			int intDeck[][] = CPTMethods.deckOfCards();
+			
+			//dealing cards + declaring variables
+			int[][] intPlayer = new int[5][2];
+			int[][] intDealer = new int[5][2];
+			int intPlayerCount = 2;
+			int intDealerCount = 2;
+			int intDeckNum = 0;
+			
+			//loading data into intPlayer + intDealer arrays
+			for(int intCount = 0; intCount <= 1; intCount++){
+				intPlayer[intCount][0] = intDeck[intDeckNum][0];
+				intPlayer[intCount][1] = intDeck[intDeckNum++][1];
+				intDealer[intCount][0] = intDeck[intDeckNum][0];
+				intDealer[intCount][1] = intDeck[intDeckNum++][1];
+			}
+			
+			//dealer's first card is dealt face up on the table
+			c.println("The dealer's first card is: ");
+			String strDealerTemp = CPTMethods.cardText(intDealer[0][0], intDealer[0][1]);
+			System.out.println("dealer card: "+strDealerTemp);
+			c.println(strDealerTemp);//ASK FOR HELP
+			c.println();
+			
+			//showing the player's hand
+			c.println("Your hand:");
+			for(int intCount = 0; intCount <= 1; intCount++){
+				String strPlayerTemp = CPTMethods.cardText(intPlayer[intCount][0], intPlayer[intCount][1]);
+				c.println(strPlayerTemp);//ASK FOR HELP
+				System.out.println("player card: "+strPlayerTemp);
+			}
+			c.println();
+			
+			c.println("Play Again? Y/N");
+			char charPlayAgain = c.getChar();
+			if(Character.toUpperCase(charPlayAgain) == 'Y'){
+				blnPlay = true;
+			}else if(Character.toUpperCase(charPlayAgain) == 'N'){
+				blnPlay = false;
+			}
+			
 		}
-		
-		//dealer's first card is dealt face up on the table
-		c.println("The dealer's first card is: ");
-		String strDealerTemp = CPTMethods.cardText(intDealer[0][0], intDealer[0][1]);
-		System.out.println("dealer card: "+strDealerTemp);
-		c.println(strDealerTemp);//ASK FOR HELP
-		c.println();
-		
-		//showing the player's hand
-		c.println("Your hand:");
-		for(int intCount = 0; intCount <= 1; intCount++){
-			String strPlayerTemp = CPTMethods.cardText(intPlayer[intCount][0], intPlayer[intCount][1]);
-			c.println(strPlayerTemp);//ASK FOR HELP
-			System.out.println("player card: "+strPlayerTemp);
-		}
-		c.println();
-		
-		
 		
 		//Outputting username + money to leaderboard file
 		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
