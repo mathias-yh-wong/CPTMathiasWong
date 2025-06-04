@@ -101,4 +101,8 @@ public class CPTMethods{
 		return strValues[intValue] + " of " + strSuits[intSuit];
 	}
 	
+	public static int handValue(int[][] intHand, int intNum){
+		return 0;
+	}
+	
 }
