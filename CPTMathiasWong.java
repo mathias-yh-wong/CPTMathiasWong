@@ -31,6 +31,9 @@ public class CPTMathiasWong{
 				helpMenu(c);
 			}else if(Character.toUpperCase(charMain) == 'S'){
 				funnyJoke(c);
+			}else{
+				c.println("Invalid input. Please restart the game.");
+				blnGame = true;
 			}
 		
 		}
@@ -68,6 +71,11 @@ public class CPTMathiasWong{
 			c.println("You have $" + intMoney + ". Place your bet:");
 			int intBet = c.readInt();
 			c.clear();
+			if(intMoney < intBet){
+				c.println("Not enough money.");
+				c.sleep(1000);
+				return;
+			}
 			intMoney = intMoney - intBet;
 			
 			//creating deck of cards array
@@ -103,6 +111,34 @@ public class CPTMathiasWong{
 				System.out.println("player card: "+strPlayerTemp);
 			}
 			c.println();
+			
+			//calculating sum of player's hand in CPTMethods
+			int intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
+			
+			//blackjack scenario
+			if(intPlayerSum == 21){
+				c.println("BLACKJACK! You get 3x your bet.");
+				intMoney = intMoney + intBet * 3;
+			}
+			
+			//double down scenario
+			if(intPlayerSum == 9 || intPlayerSum == 10 || intPlayerSum == 11){
+				c.println("Your total is " + intPlayerSum + ". Do you want to double down? (Y/N)");
+				char charDoubleDown = c.getChar();
+				if(Character.toUpperCase(charDoubleDown) == 'Y'){
+				
+				}
+			}
+			
+			//hit or stay
+			c.println();
+			c.println("hit or stay pick one");
+			char charHitStay = c.getChar();
+			if(Character.toUpperCase(charHitStay) == 'h'){
+				c.closeConsole();
+			}else if(Character.toUpperCase(charHitStay) == 's'){
+				c.closeConsole();
+			}
 			
 			//asking if user wants to play again
 			c.println("Play Again? Y/N");
