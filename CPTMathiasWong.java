@@ -6,6 +6,7 @@ import java.awt.Font;
 public class CPTMathiasWong{
 	public static void main(String[] args){
 		
+		//boolean variable + loop to keep game running
 		boolean blnGame = true;
 		
 		while(true){
@@ -38,6 +39,7 @@ public class CPTMathiasWong{
 	
 	public static void playGame(Console c){
 		
+		//declaring + initializing variables
 		boolean blnPlay = true;
 		String strName = "";
 		int intMoney = 1000;
@@ -57,6 +59,7 @@ public class CPTMathiasWong{
 			intMoney = 1000000;
 		}
 		
+		//while loop to replay game 
 		while(blnPlay = true && intMoney > 0){
 			
 			c.clear();
@@ -101,6 +104,7 @@ public class CPTMathiasWong{
 			}
 			c.println();
 			
+			//asking if user wants to play again
 			c.println("Play Again? Y/N");
 			char charPlayAgain = c.getChar();
 			if(Character.toUpperCase(charPlayAgain) == 'Y'){
@@ -173,10 +177,12 @@ public class CPTMathiasWong{
 			}
 		}
 		
+		//printing the leaderboard
 		for(int intCount = 0; intCount < intPlayers; intCount++){
 			c.println(strLeaderboard[intCount][0] + " - " + strLeaderboard[intCount][1]);
 		}
 		
+		//prompting user to return to main menu
 		c.println();
 		c.println("Enter spacebar to return to main menu.");
 		char charLead = c.getChar();
@@ -283,6 +289,7 @@ public class CPTMathiasWong{
 				helpMenu(c);
 			}
 		}else if(charHelp == 'q' || charHelp == 'Q'){
+			//returns to main menu
 			c.clear();
 			return;
 		}
@@ -298,6 +305,7 @@ public class CPTMathiasWong{
 		c.repaint();
 		c.setTextColor(Color.BLACK);
 				
+		//prints joke and prompts user to return to main menu
 		c.println("What do you call a magician who lost their magic?");
 		c.sleep(1000);
 		c.println("Ian!");
