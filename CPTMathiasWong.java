@@ -75,6 +75,9 @@ public class CPTMathiasWong{
 				c.println("Not enough money.");
 				c.sleep(1000);
 				return;
+			}else if(intBet <= 0){
+				c.println("Invalid bet.");
+				return;
 			}
 			intMoney = intMoney - intBet;
 			
@@ -87,6 +90,7 @@ public class CPTMathiasWong{
 			int intPlayerCount = 2;
 			int intDealerCount = 2;
 			int intDeckNum = 0;
+			boolean blnDoubleDown = true;
 			
 			//loading data into intPlayer + intDealer arrays
 			for(int intCount = 0; intCount <= 1; intCount++){
@@ -100,25 +104,29 @@ public class CPTMathiasWong{
 			c.println("The dealer's first card is: ");
 			String strDealerTemp = CPTMethods.cardText(intDealer[0][0], intDealer[0][1]);
 			System.out.println("dealer card: "+strDealerTemp);
-			c.println(strDealerTemp);//ASK FOR HELP
+			c.println(strDealerTemp);
 			c.println();
 			
 			//showing the player's hand
 			c.println("Your hand:");
 			for(int intCount = 0; intCount <= 1; intCount++){
 				String strPlayerTemp = CPTMethods.cardText(intPlayer[intCount][0], intPlayer[intCount][1]);
-				c.println(strPlayerTemp);//ASK FOR HELP
+				c.println(strPlayerTemp);
 				System.out.println("player card: "+strPlayerTemp);
 			}
 			c.println();
 			
 			//calculating sum of player's hand in CPTMethods
 			int intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
+			System.out.println("sum: "+intPlayerSum);
 			
 			//blackjack scenario
 			if(intPlayerSum == 21){
 				c.println("BLACKJACK! You get 3x your bet.");
 				intMoney = intMoney + intBet * 3;
+				System.out.println("money: "+intMoney);
+			}else{
+				blnDoubleDown = false;
 			}
 			
 			//double down scenario
@@ -126,7 +134,19 @@ public class CPTMathiasWong{
 				c.println("Your total is " + intPlayerSum + ". Do you want to double down? (Y/N)");
 				char charDoubleDown = c.getChar();
 				if(Character.toUpperCase(charDoubleDown) == 'Y'){
-				
+					intBet = intBet * 2;
+					
+					intPlayer[intPlayerCount][0] = intDeck[intDeckNum][0];
+					intPlayer[intPlayerCount][0] = intDeck[intDeckNum][1];
+					
+					String strDDCard = CPTMethods.cardText(intPlayer[intPlayerCount-1][0], intPlayer[intPlayerCount][1]);
+					intDeckNum++;
+					intPlayerCount++;
+					
+					c.println("Your new card is: "+strDDCard);
+					intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
+					c.println("Your hand's total is: "+intPlayerSum);
+					blnDoubleDown = true;
 				}
 			}
 			
