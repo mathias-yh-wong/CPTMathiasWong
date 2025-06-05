@@ -49,6 +49,7 @@ public class CPTMethods{
 		int intSuit = 0;
 		
 		//loading data into array
+		//because 12 max, 0 value is ace
 		for(intSuit = 0; intSuit <= 3; intSuit++){
 			for(intValue = 0; intValue <= 12; intValue++){
 				intDeck[intCards][0] = intValue;
@@ -101,8 +102,39 @@ public class CPTMethods{
 		return strValues[intValue] + " of " + strSuits[intSuit];
 	}
 	
-	public static int handValue(int[][] intHand, int intNum){
-		return 0;
+	public static int handValue(int[][] intHand, int intCardCount){
+		
+		//method to count the sum of player's hand
+		
+		int intSum = 0;
+		int intAce = 0;
+		
+		//calculating value of hand + adjusting for special rules
+		for(int intCount = 0; intCount < intCardCount; intCount++){
+			int intCardValue = intHand[intCount][0];
+			//adjusting jack, king and queen values to 10
+			if(intCardValue >= 10){
+				intSum = intSum + 10;
+			}else if(intCardValue == 0){
+				//adjusting ace value to 11
+				intSum = intSum + 11;
+				//counting number of aces in player hand
+				intAce++;
+			}else{
+				intSum = intSum + (intCardValue + 1);
+			}
+		}
+		
+		//scenario if player has an ace but sum over 21
+		//while loop because player could have two aces
+		while(intAce > 0 && intSum > 21){
+			//lowers ace count
+			intAce--;
+			//converts 11 to 1
+			intSum = intSum - 10;
+		}
+		
+		return intSum;
 	}
 	
 }
