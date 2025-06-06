@@ -166,7 +166,6 @@ public class CPTMathiasWong{
 				c.println("BLACKJACK! You get 3x your bet.");
 				intMoney = intMoney + intBet * 3;
 				System.out.println("money: "+intMoney);
-				continue;
 			}else{
 				if(intPlayerSum == 9 || intPlayerSum == 10 || intPlayerSum == 11){
 				c.println("Your total is " + intPlayerSum + ". Do you want to double down? (Y/N)");
@@ -192,7 +191,6 @@ public class CPTMathiasWong{
 					c.println("Your hand's total is: "+intPlayerSum);
 					//setting double down to true and ending player's turn
 					blnDoubleDown = true;
-					continue;
 					}
 				}
 			}
@@ -201,31 +199,54 @@ public class CPTMathiasWong{
 			c.println();
 			if(blnDoubleDown == false && intPlayerSum < 21){
 				boolean blnHit = true;
+				
 				while(blnHit == true && intPlayerSum < 21 && intPlayerCount < 5){
-					c.println("Hit or Stay? 1/2");
-					char charHitStay = c.getChar();
-					if(charHitStay == '1'){
-						//load data for player's third card
-						intPlayer[intPlayerCount][0] = intDeck[intDeckNum][0];
-						intPlayer[intPlayerCount][1] = intDeck[intDeckNum][1];
+					c.println("Hit or Stay? LMB for Hit, RMB for Stay");
+					int intMouse;
+					
+					while (true) {
 						
-						strPlayerTemp = CPTMethods.cardText(intPlayer[intPlayerCount][0], intPlayer[intPlayerCount][1]);
-						c.println("Your new card is: "+strPlayerTemp);
+						intMouse = c.currentMouseButton();
 						
-						//incrementing deckNum so it pulls next card
-						intDeckNum++;
-						//incrementing playerCount so it updates number of cards in player's hand
-						intPlayerCount++;
-						
-						//calculating new value of player's hand
-						intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
-						
-						System.out.println("new sum: "+intPlayerSum);
-						c.println("Your hand's total is: "+intPlayerSum);
-					}else{
-						blnHit = false;
+						if(intMouse == 1){
+							//load data for player's third card
+							intPlayer[intPlayerCount][0] = intDeck[intDeckNum][0];
+							intPlayer[intPlayerCount][1] = intDeck[intDeckNum][1];
+							
+							strPlayerTemp = CPTMethods.cardText(intPlayer[intPlayerCount][0], intPlayer[intPlayerCount][1]);
+							c.println("Your new card is: "+strPlayerTemp);
+							
+							//incrementing deckNum so it pulls next card
+							intDeckNum++;
+							//incrementing playerCount so it updates number of cards in player's hand
+							intPlayerCount++;
+							
+							//calculating new value of player's hand
+							intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
+							
+							System.out.println("new sum: "+intPlayerSum);
+							c.println("Your hand's total is: "+intPlayerSum);
+							
+							while(c.currentMouseButton() != 0){
+								c.sleep(100);
+							}
+							
+							break;
+							
+						}else if(intMouse == 3){
+							blnHit = false;
+							
+							while(c.currentMouseButton() != 0){
+								c.sleep(100);
+							}
+							
+							break;
+						}
+					
 					}
+					
 				}
+				
 			}
 			
 			if(intPlayerCount == 5 && intPlayerSum <= 21){
@@ -294,7 +315,7 @@ public class CPTMathiasWong{
 		}
 		
 		//Outputting username + money to leaderboard file
-		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt");
+		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt", true);
 		leaderboard.println(strName);
 		leaderboard.println(intMoney);
 		
@@ -412,36 +433,30 @@ public class CPTMathiasWong{
 			c.println("Aces are worth 11 unless it causes a bust, then they count for 1");
 			c.println("Player can choose to HIT (draw a card) or STAY (end turn).");
 			c.println("Dealer hits until 17 is reached.");
-			c.println("Enter spacebar to return to the main menu");
-			charHelp = c.getChar();
-			if(charHelp == ' '){
-				c.clear();
-				helpMenu(c);
-			}
+			c.println();
+			c.println("Press any key to return to main menu.");
+			c.getChar();
+			return;
 		}else if(charHelp == '3'){
 			//displays betting rules
 			c.println("BETTING:");
 			c.println("Win: 2x your bet");
 			c.println("Tie: Get your bet back");
 			c.println("Lose/Bust: Lose your bet");
-			c.println("Enter spacebar to return to the main menu");
-			charHelp = c.getChar();
-			if(charHelp == ' '){
-				c.clear();
-				helpMenu(c);
-			}
+			c.println();
+			c.println("Press any key to return to main menu.");
+			c.getChar();
+			return;
 		}else if(charHelp == '4'){
 			//displays special rules
 			c.println("SPECIAL RULES:");
 			c.println("Blackjack: If your first two cards equal 21, you win 3x your bet.");
 			c.println("Double Down: If your first two cards total 9, 10 or 11, you can double your bet and draw one more card.");
 			c.println("5 Cards: If you draw 5 cards without busting, you automatically win (2x).");
-			c.println("Enter spacebar to return to the main menu");
-			charHelp = c.getChar();
-			if(charHelp == ' '){
-				c.clear();
-				helpMenu(c);
-			}
+			c.println();
+			c.println("Press any key to return to main menu.");
+			c.getChar();
+			return;
 		}else if(charHelp == '5'){
 			//displays controls
 			c.println("CONTROLS:");
@@ -457,12 +472,10 @@ public class CPTMathiasWong{
 			c.println("Right mouse - stay");
 			c.println("D - Double down");
 			c.println();
-			c.println("Enter spacebar to return to the main menu");
-			charHelp = c.getChar();
-			if(charHelp == ' '){
-				c.clear();
-				helpMenu(c);
-			}
+			c.println();
+			c.println("Press any key to return to main menu.");
+			c.getChar();
+			return;
 		}else if(charHelp == 'q' || charHelp == 'Q'){
 			//returns to main menu
 			c.clear();
@@ -485,12 +498,9 @@ public class CPTMathiasWong{
 		c.sleep(1000);
 		c.println("Ian!");
 		c.println();
-		c.println("Enter spacebar to return to the main menu");
-		char charJoke = c.getChar();
-		if(charJoke == ' '){
-			c.clear();
-			return;
-		}
+		c.println("Press any key to return to main menu.");
+		c.getChar();
+		return;
 		
 	}
 	
