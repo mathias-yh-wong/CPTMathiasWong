@@ -113,14 +113,16 @@ public class CPTMethods{
 		for(int intCount = 0; intCount < intCardCount; intCount++){
 			int intCardValue = intHand[intCount][0];
 			//adjusting jack, king and queen values to 10
-			if(intCardValue >= 10){
-				intSum = intSum + 10;
-			}else if(intCardValue == 0){
+			if(intCardValue == 0){
 				//adjusting ace value to 11
 				intSum = intSum + 11;
 				//counting number of aces in player hand
 				intAce++;
+			}else if(intCardValue >= 10){
+				//adjusting jack, king and queen values to 10
+				intSum = intSum + 10;
 			}else{
+				//+1 because java starts counting from 0, not 1
 				intSum = intSum + (intCardValue + 1);
 			}
 		}
