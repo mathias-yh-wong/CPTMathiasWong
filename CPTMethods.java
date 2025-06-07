@@ -136,6 +136,7 @@ public class CPTMethods{
 			intSum = intSum - 10;
 		}
 		
+		//returns variable
 		return intSum;
 	}
 	
