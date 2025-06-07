@@ -84,7 +84,7 @@ public class CPTMathiasWong{
 				//if bet is invalid
 				c.println("Invalid bet.");
 				c.sleep(1000);
-				return;
+				playGame(c);
 			}
 			intMoney = intMoney - intBet;
 			
@@ -193,9 +193,12 @@ public class CPTMathiasWong{
 						c.println("Your hand's total is: "+intPlayerSum);
 						//setting double down to true and ending player's turn
 						blnDoubleDown = true;
-					}else{
+					}else if(intMoney < intBet * 2){
 						c.println();
 						c.println("Not enough money.");
+					}else if(charDoubleDown != 'Y' || charDoubleDown != 'N'){
+						c.println();
+						c.println("Invalid input.");
 					}
 				}
 			}
@@ -203,8 +206,10 @@ public class CPTMathiasWong{
 			//hit or stay
 			c.println();
 			if(blnDoubleDown == false && intPlayerSum < 21){
+				//boolean variable for hit loop
 				boolean blnHit = true;
 				
+				//loop for player hitting again
 				while(blnHit == true && intPlayerSum < 21 && intPlayerCount < 5){
 					c.println("Hit or Stay? LMB for Hit, RMB for Stay");
 					int intMouse;
@@ -232,6 +237,7 @@ public class CPTMathiasWong{
 							System.out.println("new sum: "+intPlayerSum);
 							c.println("Your hand's total is: "+intPlayerSum);
 							
+							//prevent from grabbing mouse input many times after click
 							while(c.currentMouseButton() != 0){
 								c.sleep(100);
 							}
@@ -239,8 +245,10 @@ public class CPTMathiasWong{
 							break;
 							
 						}else if(intMouse == 3){
+							//if user right clicks to stay, breaks loop
 							blnHit = false;
 							
+							//prevent from grabbing mouse input many times after click
 							while(c.currentMouseButton() != 0){
 								c.sleep(100);
 							}
@@ -254,6 +262,7 @@ public class CPTMathiasWong{
 				
 			}
 			
+			//5 card win scenario, continue to skip and avoid winning twice
 			if(intPlayerCount == 5 && intPlayerSum <= 21){
 				c.println("You got 5 cards! You automatically win 3x your bet.");
 				intMoney = intMoney + intBet * 3;
@@ -262,6 +271,7 @@ public class CPTMathiasWong{
 				System.out.println("money: "+intMoney);
 				continue;
 			}else if(intPlayerSum > 21){
+				//if player gets over 21 and busts
 				c.println("You busted! Your sum is over 21.");
 			}else{
 				//calculating sum of dealer's hand
@@ -289,12 +299,15 @@ public class CPTMathiasWong{
 				
 				//comparing player's sum and dealer's sum
 				if(intDealerSum > 21 || intPlayerSum > intDealerSum){
+					//player wins
 					c.println("You win!");
 					intMoney = intMoney + intBet * 2;
 				}else if(intPlayerSum == intDealerSum){
+					//player draws
 					c.println("A tie. Your bet is returned.");
 					intMoney = intMoney + intBet;
 				}else{
+					//player loses
 					c.println("You lose.");
 				}
 				System.out.println("money: "+intMoney);
@@ -307,13 +320,17 @@ public class CPTMathiasWong{
 			char charPlayAgain = c.getChar();
 			charPlayAgain = Character.toUpperCase(charPlayAgain);
 			if(charPlayAgain == 'Y'){
+				//continue while loop
 				blnPlay = true;
 				if(intMoney <= 0){
+					//if player has no money left
 					c.println("Not enough money left to play again.");
 					c.println("Press any key to return to menu.");
 					c.getChar();
+					return;
 				}
 			}else if(charPlayAgain == 'N'){
+				//breaks the while loop by setting boolean to false
 				blnPlay = false;
 			}
 			
@@ -489,6 +506,10 @@ public class CPTMathiasWong{
 			//returns to main menu
 			c.clear();
 			return;
+		}else{
+			c.clear();
+			c.println("Invalid input.");
+			helpMenu(c);
 		}
 		
 		
