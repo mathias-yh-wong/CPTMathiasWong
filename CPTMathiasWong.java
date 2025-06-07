@@ -170,27 +170,30 @@ public class CPTMathiasWong{
 				if(intPlayerSum == 9 || intPlayerSum == 10 || intPlayerSum == 11){
 				c.println("Your total is " + intPlayerSum + ". Do you want to double down? (Y/N)");
 				char charDoubleDown = c.getChar();
-				if(Character.toUpperCase(charDoubleDown) == 'Y'){
-					intBet = intBet * 2;
-					
-					//load data for player's third card
-					intPlayer[intPlayerCount][0] = intDeck[intDeckNum][0];
-					intPlayer[intPlayerCount][1] = intDeck[intDeckNum][1];
-					
-					//get text for player's third card
-					String strDDCard = CPTMethods.cardText(intPlayer[intPlayerCount][0], intPlayer[intPlayerCount][1]);
-					//incrementing deckNum so doesn't deal the same card
-					intDeckNum++;
-					//incrementing playerCount to represent number of cards player hands
-					intPlayerCount++;
+					if(Character.toUpperCase(charDoubleDown) == 'Y' && intMoney >= intBet * 2 ){
+						intBet = intBet * 2;
+						
+						//load data for player's third card
+						intPlayer[intPlayerCount][0] = intDeck[intDeckNum][0];
+						intPlayer[intPlayerCount][1] = intDeck[intDeckNum][1];
+						
+						//get text for player's third card
+						String strDDCard = CPTMethods.cardText(intPlayer[intPlayerCount][0], intPlayer[intPlayerCount][1]);
+						//incrementing deckNum so doesn't deal the same card
+						intDeckNum++;
+						//incrementing playerCount to represent number of cards player hands
+						intPlayerCount++;
 
-					c.println("Your new card is: "+strDDCard);
-					//calculating new value of player's hand
-					intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
-					System.out.println("new sum: "+intPlayerSum);
-					c.println("Your hand's total is: "+intPlayerSum);
-					//setting double down to true and ending player's turn
-					blnDoubleDown = true;
+						c.println("Your new card is: "+strDDCard);
+						//calculating new value of player's hand
+						intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
+						System.out.println("new sum: "+intPlayerSum);
+						c.println("Your hand's total is: "+intPlayerSum);
+						//setting double down to true and ending player's turn
+						blnDoubleDown = true;
+					}else{
+						c.println();
+						c.println("Not enough money.");
 					}
 				}
 			}
@@ -306,7 +309,6 @@ public class CPTMathiasWong{
 					c.println("Not enough money left to play again.");
 					c.println("Press any key to return to menu.");
 					c.getChar();
-					return;
 				}
 			}else if(Character.toUpperCase(charPlayAgain) == 'N'){
 				blnPlay = false;
@@ -318,6 +320,9 @@ public class CPTMathiasWong{
 		TextOutputFile leaderboard = new TextOutputFile("leaderboard.txt", true);
 		leaderboard.println(strName);
 		leaderboard.println(intMoney);
+		leaderboard.close();
+		
+		return;
 		
 	}
 	
@@ -352,6 +357,8 @@ public class CPTMathiasWong{
 			System.out.println(strLeaderboard[intCount][0]);
 			System.out.println(strLeaderboard[intCount][1]);
 		}
+		
+		leaderboard.close();
 		
 		//sorting array
 		
