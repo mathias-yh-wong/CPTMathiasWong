@@ -18,18 +18,19 @@ public class CPTMathiasWong{
 			
 			//Getting character from user keyboard
 			char charMain = c.getChar();
+			charMain = Character.toUpperCase(charMain);
 			System.out.println("Entered character: "+charMain);
 			
 			//Directing to specific method
-			if(Character.toUpperCase(charMain) == 'P'){
+			if(charMain == 'P'){
 				playGame(c);
-			}else if(Character.toUpperCase(charMain) == 'L'){
+			}else if(charMain == 'L'){
 				viewLeaderboard(c);
-			}else if(Character.toUpperCase(charMain) == 'Q'){
+			}else if(charMain == 'Q'){
 				c.closeConsole();
-			}else if(Character.toUpperCase(charMain) == 'H'){
+			}else if(charMain == 'H'){
 				helpMenu(c);
-			}else if(Character.toUpperCase(charMain) == 'S'){
+			}else if(charMain == 'S'){
 				funnyJoke(c);
 			}else{
 				c.println("Invalid input. Please restart the game.");
@@ -170,7 +171,8 @@ public class CPTMathiasWong{
 				if(intPlayerSum == 9 || intPlayerSum == 10 || intPlayerSum == 11){
 				c.println("Your total is " + intPlayerSum + ". Do you want to double down? (Y/N)");
 				char charDoubleDown = c.getChar();
-					if(Character.toUpperCase(charDoubleDown) == 'Y' && intMoney >= intBet * 2 ){
+				charDoubleDown = Character.toUpperCase(charDoubleDown);
+					if(charDoubleDown == 'Y' && intMoney >= intBet * 2 ){
 						intBet = intBet * 2;
 						
 						//load data for player's third card
@@ -303,14 +305,15 @@ public class CPTMathiasWong{
 			c.println();
 			c.println("Play Again? Y/N");
 			char charPlayAgain = c.getChar();
-			if(Character.toUpperCase(charPlayAgain) == 'Y'){
+			charPlayAgain = Character.toUpperCase(charPlayAgain);
+			if(charPlayAgain == 'Y'){
 				blnPlay = true;
 				if(intMoney <= 0){
 					c.println("Not enough money left to play again.");
 					c.println("Press any key to return to menu.");
 					c.getChar();
 				}
-			}else if(Character.toUpperCase(charPlayAgain) == 'N'){
+			}else if(charPlayAgain == 'N'){
 				blnPlay = false;
 			}
 			
@@ -478,7 +481,6 @@ public class CPTMathiasWong{
 			c.println("Left mouse - hit");
 			c.println("Right mouse - stay");
 			c.println("D - Double down");
-			c.println();
 			c.println();
 			c.println("Press any key to return to main menu.");
 			c.getChar();
