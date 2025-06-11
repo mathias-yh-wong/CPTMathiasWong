@@ -32,9 +32,6 @@ public class CPTMathiasWong{
 				helpMenu(c);
 			}else if(charMain == 'S'){
 				funnyJoke(c);
-			}else{
-				c.println("Invalid input. Please restart the game.");
-				blnGame = true;
 			}
 		
 		}
@@ -75,6 +72,7 @@ public class CPTMathiasWong{
 			c.println("You have $" + intMoney + ". Place your bet:");
 			int intBet = c.readInt();
 			c.clear();
+			
 			//if bet is bigger than they can afford
 			if(intMoney < intBet){
 				c.println("Not enough money.");
@@ -141,6 +139,7 @@ public class CPTMathiasWong{
 			}
 			
 			//dealer's first card is dealt face up on the table
+			c.sleep(250);
 			c.println("The dealer's first card is: ");
 			//getting text for dealer's first card
 			strDealerTemp = CPTMethods.cardText(intDealer[0][0], intDealer[0][1]);
@@ -149,11 +148,13 @@ public class CPTMathiasWong{
 			c.println();
 			
 			//showing the player's hand
+			c.sleep(250);
 			c.println("Your hand:");
 			//getting text for player's two cards
 			for(int intCount = 0; intCount <= 1; intCount++){
 				strPlayerTemp = CPTMethods.cardText(intPlayer[intCount][0], intPlayer[intCount][1]);
 				c.println(strPlayerTemp);
+				c.sleep(250);
 				System.out.println("player card: "+strPlayerTemp);
 			}
 			c.println();
@@ -162,17 +163,19 @@ public class CPTMathiasWong{
 			intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
 			System.out.println("sum: "+intPlayerSum);
 			
+			c.sleep(500);
 			//blackjack scenario
 			if(intPlayerSum == 21 && intPlayerCount == 2){
 				c.println("BLACKJACK! You get 3x your bet.");
 				intMoney = intMoney + intBet * 3;
+				c.sleep(500);
 				System.out.println("money: "+intMoney);
 			}else{
 				if(intPlayerSum == 9 || intPlayerSum == 10 || intPlayerSum == 11){
-				c.println("Your total is " + intPlayerSum + ". Do you want to double down? (Y/N)");
+				c.println("Your total is " + intPlayerSum + ". Do you want to double down? Enter D to double down.");
 				char charDoubleDown = c.getChar();
 				charDoubleDown = Character.toUpperCase(charDoubleDown);
-					if(charDoubleDown == 'Y' && intMoney >= intBet * 2 ){
+					if(charDoubleDown == 'D' && intMoney >= intBet * 2 ){
 						intBet = intBet * 2;
 						
 						//load data for player's third card
@@ -196,7 +199,7 @@ public class CPTMathiasWong{
 					}else if(intMoney < intBet * 2){
 						c.println();
 						c.println("Not enough money.");
-					}else if(charDoubleDown != 'Y' || charDoubleDown != 'N'){
+					}else if(charDoubleDown != 'D'){
 						c.println();
 						c.println("Invalid input.");
 					}
@@ -264,6 +267,7 @@ public class CPTMathiasWong{
 			
 			//5 card win scenario, continue to skip and avoid winning twice
 			if(intPlayerCount == 5 && intPlayerSum <= 21){
+				c.sleep(500);
 				c.println("You got 5 cards! You automatically win 3x your bet.");
 				intMoney = intMoney + intBet * 3;
 				c.println("Press any key to continue.");
@@ -272,8 +276,10 @@ public class CPTMathiasWong{
 				continue;
 			}else if(intPlayerSum > 21){
 				//if player gets over 21 and busts
+				c.sleep(500);
 				c.println("You busted! Your sum is over 21.");
 			}else{
+				c.sleep(500);
 				//calculating sum of dealer's hand
 				intDealerSum = CPTMethods.handValue(intDealer, intDealerCount);
 				//loop checking and allowing dealer to draw until sum is over 17
@@ -327,7 +333,6 @@ public class CPTMathiasWong{
 					c.println("Not enough money left to play again.");
 					c.println("Press any key to return to menu.");
 					c.getChar();
-					return;
 				}
 			}else if(charPlayAgain == 'N'){
 				//breaks the while loop by setting boolean to false
