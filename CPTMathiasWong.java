@@ -128,6 +128,9 @@ public class CPTMathiasWong{
 			//player turn ends when double down
 			boolean blnDoubleDown = false;
 			
+			//tracking if player hits/stands off the 2 cards
+			boolean blnPlayerHit = false;
+			
 			//variable to store text of player's current card
 			String strPlayerTemp;
 			
@@ -214,9 +217,8 @@ public class CPTMathiasWong{
 					}else if(intMoney < intBet * 2){
 						c.println();
 						c.println("Not enough money.");
-					}else if(charDoubleDown != 'D'){
-						c.println();
-						c.println("Invalid input.");
+					}else{
+						c.println("You chose to not double down.");
 					}
 				}
 			}
@@ -225,18 +227,18 @@ public class CPTMathiasWong{
 			c.println();
 			if(blnDoubleDown == false && intPlayerSum < 21){
 				//boolean variable for hit loop
-				boolean blnHit = true;
+				boolean blnHitAgain = true;
 				
 				//loop for player hitting again
-				while(blnHit == true && intPlayerSum < 21 && intPlayerCount < 5){
+				while(blnHitAgain == true && intPlayerSum < 21 && intPlayerCount < 5){
 					c.println("Hit or Stay? LMB for Hit, RMB for Stay");
 					int intMouse;
 					
 					while (true) {
 						
 						intMouse = c.currentMouseButton();
-						
 						if(intMouse == 1){
+							blnPlayerHit = true;
 							//load data for player's third card
 							intPlayer[intPlayerCount][0] = intDeck[intDeckNum][0];
 							intPlayer[intPlayerCount][1] = intDeck[intDeckNum][1];
@@ -266,7 +268,7 @@ public class CPTMathiasWong{
 							
 						}else if(intMouse == 3){
 							//if user right clicks to stay, breaks loop
-							blnHit = false;
+							blnHitAgain = false;
 							c.println();
 							c.println("You stayed. It is now the dealer's turn.");
 							c.println();
@@ -313,17 +315,19 @@ public class CPTMathiasWong{
 					intDealerSum = CPTMethods.handValue(intDealer, intDealerCount);
 				}
 				
-				//revealing dealer's hand
-				c.println();
-				c.println("Dealer's hand is: ");
-				for(int intCount = 0; intCount < intDealerCount; intCount++){
-					strDealerTemp = CPTMethods.cardText(intDealer[intCount][0], intDealer[intCount][1]);
-					c.println(strDealerTemp);
+				//boolean for hiding dealer's hand
+				boolean blnHideDealerHand = false;
+				
+				//two cases where dealer doesn't show hand
+				//if player immediately stands and dealer then wins
+				if(blnPlayerHit == false && intPlayerSum < intDealerSum && intDealerSum <= 21){
+					blnHideDealerHand = true;
 				}
-				c.println();
-				c.println("The dealer's sum is: "+intDealerSum);
-				c.sleep(1000);
-				c.println();
+				
+				//if dealer gets 5 card win
+				if(intDealerCount == 5 && intDealerSum <= 21 && intDealerSum > intPlayerSum){
+					blnHideDealerHand = true;
+				}
 				
 				//comparing player's sum and dealer's sum
 				if(intDealerSum > 21 || intPlayerSum > intDealerSum){
@@ -339,7 +343,20 @@ public class CPTMathiasWong{
 					c.println("You lose.");
 				}
 				System.out.println("money: "+intMoney);
-					
+				
+				if(blnHideDealerHand == false){
+					//revealing dealer's hand
+					c.println();
+					c.println("Dealer's hand is: ");
+					for(int intCount = 0; intCount < intDealerCount; intCount++){
+						strDealerTemp = CPTMethods.cardText(intDealer[intCount][0], intDealer[intCount][1]);
+						c.println(strDealerTemp);
+					}
+					c.println();
+					c.println("The dealer's sum is: "+intDealerSum);
+					c.sleep(1000);
+					c.println();
+				}
 			}
 			
 			//asking if user wants to play again
