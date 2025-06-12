@@ -3,6 +3,13 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.Font;
 
+//Program Header
+
+//Name: Mathias Wong
+//Name of program: CPTMethods
+//Date updated: 12 June 2025
+//Version number: V1.0
+
 public class CPTMethods{
 	public static void main(String[] args){
 		Console c = new Console();

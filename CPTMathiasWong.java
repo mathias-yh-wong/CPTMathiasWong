@@ -3,6 +3,13 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.awt.Font;
 
+//Program Header
+
+//Name: Mathias Wong
+//Name of program: CPTMathiasWong
+//Date updated: 12 June 2025
+//Version number: V1.0
+
 public class CPTMathiasWong{
 	public static void main(String[] args){
 		
