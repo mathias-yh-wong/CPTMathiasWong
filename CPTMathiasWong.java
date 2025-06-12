@@ -69,7 +69,9 @@ public class CPTMathiasWong{
 			c.clear();
 			
 			//prompting user for bet amount
-			c.println("You have $" + intMoney + ". Place your bet:");
+			c.println("Current balance: $"+ intMoney);
+			c.println();
+			c.print("Place your bet: $");
 			int intBet = c.readInt();
 			c.clear();
 			
@@ -157,7 +159,6 @@ public class CPTMathiasWong{
 				c.sleep(250);
 				System.out.println("player card: "+strPlayerTemp);
 			}
-			c.println();
 			
 			//calculating sum of player's hand in CPTMethods
 			intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
@@ -166,15 +167,20 @@ public class CPTMathiasWong{
 			c.sleep(500);
 			//blackjack scenario
 			if(intPlayerSum == 21 && intPlayerCount == 2){
+				c.println();
 				c.println("BLACKJACK! You get 3x your bet.");
 				intMoney = intMoney + intBet * 3;
 				c.sleep(500);
 				System.out.println("money: "+intMoney);
+				c.println();
+				c.println("-------------------------");
 			}else{
 				if(intPlayerSum == 9 || intPlayerSum == 10 || intPlayerSum == 11){
-				c.println("Your total is " + intPlayerSum + ". Do you want to double down? Enter D to double down.");
-				char charDoubleDown = c.getChar();
-				charDoubleDown = Character.toUpperCase(charDoubleDown);
+					c.println();
+					c.println("Your total is " + intPlayerSum + ". Do you want to double down? Enter D to double down.");
+					c.println();
+					char charDoubleDown = c.getChar();
+					charDoubleDown = Character.toUpperCase(charDoubleDown);
 					if(charDoubleDown == 'D' && intMoney >= intBet * 2 ){
 						intBet = intBet * 2;
 						
@@ -188,7 +194,9 @@ public class CPTMathiasWong{
 						intDeckNum++;
 						//incrementing playerCount to represent number of cards player hands
 						intPlayerCount++;
-
+						
+						c.println("You doubled down. Your bet is now doubled and this will be your final card.");
+						c.println();
 						c.println("Your new card is: "+strDDCard);
 						//calculating new value of player's hand
 						intPlayerSum = CPTMethods.handValue(intPlayer, intPlayerCount);
@@ -227,6 +235,7 @@ public class CPTMathiasWong{
 							intPlayer[intPlayerCount][1] = intDeck[intDeckNum][1];
 							
 							strPlayerTemp = CPTMethods.cardText(intPlayer[intPlayerCount][0], intPlayer[intPlayerCount][1]);
+							c.println();
 							c.println("Your new card is: "+strPlayerTemp);
 							
 							//incrementing deckNum so it pulls next card
@@ -239,6 +248,7 @@ public class CPTMathiasWong{
 							
 							System.out.println("new sum: "+intPlayerSum);
 							c.println("Your hand's total is: "+intPlayerSum);
+							c.println();
 							
 							//prevent from grabbing mouse input many times after click
 							while(c.currentMouseButton() != 0){
@@ -250,6 +260,10 @@ public class CPTMathiasWong{
 						}else if(intMouse == 3){
 							//if user right clicks to stay, breaks loop
 							blnHit = false;
+							c.println();
+							c.println("You stayed. It is now the dealer's turn.");
+							c.println();
+							c.println("---------------------------");
 							
 							//prevent from grabbing mouse input many times after click
 							while(c.currentMouseButton() != 0){
@@ -302,6 +316,7 @@ public class CPTMathiasWong{
 				c.println();
 				c.println("The dealer's sum is: "+intDealerSum);
 				c.sleep(1000);
+				c.println();
 				
 				//comparing player's sum and dealer's sum
 				if(intDealerSum > 21 || intPlayerSum > intDealerSum){
@@ -409,8 +424,20 @@ public class CPTMathiasWong{
 		}
 		
 		//printing the leaderboard
+		String strSpaces = "";
+		
+		c.println("Player Name             Score");
+		c.println("-----------------------------");
+		
+		//for loop to print name and score + calculate the spaces needed in between to keep format
 		for(int intCount = 0; intCount < intPlayers; intCount++){
-			c.println(strLeaderboard[intCount][0] + " - " + strLeaderboard[intCount][1]);
+			String strName = strLeaderboard[intCount][0];
+			String strScore = strLeaderboard[intCount][1];
+			strSpaces = "";
+			for(int intCount2 = strName.length(); intCount2 < 24; intCount2++){
+				strSpaces = strSpaces + " ";
+			}
+			c.println(strName + strSpaces + strScore);
 		}
 		
 		//prompting user to return to main menu
